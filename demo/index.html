@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Game life. Demo. JS canvas.</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="HandheldFriendly" content="True">
+
+    <link rel="stylesheet" media="all" href="../src/css/normalize.css">
+    <link rel="stylesheet" media="all" href="../src/css/style.css">
+  </head>
+  <body>
+    <div class="controls">
+      <input type="button" value="Start" id="start">
+      <input type="button" value="Stop" id="stop">
+      <input type="button" value="Clear" id="clear">
+      <input type="button" value="Random" id="random">
+    </div>
+    <canvas id="lifeField"></canvas>
+    <canvas id="lifeBeetles"></canvas>
+
+    <script src="../bower_components/lodash/dist/lodash.min.js"></script>
+    <script src="../bower_components/zepto/zepto.min.js"></script>
+    <script src="../src/js/main.js"></script>
+
+    <script>
+      (function($) {
+        var game = new GameLife();
+
+        $('#start').on('click', function() {
+          game.start();
+        });
+        $('#stop').on('click', function() {
+          game.stop();
+        });
+        $('#clear').on('click', function() {
+          game.clear();
+        });
+        $('#random').on('click', function() {
+          game.random();
+        });
+      }(this.Zepto));
+    </script>
+  </body>
+</html>

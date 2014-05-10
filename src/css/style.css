@@ -1,0 +1,28 @@
+body {
+  background-color: #262626;
+}
+
+canvas {
+  /*
+  height: 100vh;
+  width: 100vw;
+  */
+  border: 1px solid rgba(242, 198, 65, 0.1);
+  position: absolute;
+  display: block;
+  left: 100px;
+  top: 50px;
+}
+
+#lifeField {
+  z-index: 1;
+}
+
+#lifeBeetles {
+  z-index: 2;
+}
+
+.controls {
+  margin-top: 10px;
+  margin-left: 270px;
+}

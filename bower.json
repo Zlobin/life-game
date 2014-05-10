@@ -1,0 +1,13 @@
+{
+  "name": "life",
+  "version": "1.0.0",
+  "private": "false",
+  "dependencies": {
+    "lodash": "latest",
+    "zepto": "latest"
+  },
+  "devDependencies": {
+    "requirejs": "latest",
+    "requirejs-text": "latest"
+  }
+}
