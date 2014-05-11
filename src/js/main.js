@@ -81,9 +81,10 @@
         setFillColor = function(context, color) {
           context.fillStyle = color;
         },
-        drawBeetle = function(coordX, coordY, color) {
-          setFillColor(contextBeetles, color);
-          contextField.strokeStyle = color;
+        removeBeetle = function(coordX, coordY) {
+          contextBeetles.clearRect(coordX + 1, coordY + 1, cellWidth - 2, cellHeight - 2);
+        },
+        drawBeetle = function(coordX, coordY) {
           contextBeetles.fillRect(coordX + 1, coordY + 1, cellWidth - 2, cellHeight - 2);
         },
         getRandom = function(min, max) {
@@ -99,6 +100,8 @@
               world[i][j] = 0;
             }
           }
+
+          liveBeetles = 0;
         },
         fillBeetles = function(num) {
           var x,
@@ -114,7 +117,7 @@
 
             coordX = x * cellWidth;
             coordY = y * cellHeight;
-            drawBeetle(coordX, coordY, options.beetle.color);
+            drawBeetle(coordX, coordY);
           }
         },
         drawField = function() {
@@ -143,10 +146,12 @@
             if (!_.isUndefined(world[i])) {
               if (!world[i][j]) {
                 world[i][j] = 1;
-                drawBeetle(i * cellWidth, j * cellHeight, options.beetle.color);
+                liveBeetles++;
+                drawBeetle(i * cellWidth, j * cellHeight);
               } else {
                 world[i][j] = 0;
-                drawBeetle(i * cellWidth, j * cellHeight, options.field.backgound.color);                
+                liveBeetles--;
+                removeBeetle(i * cellWidth, j * cellHeight);
               }
             }
           });
@@ -169,6 +174,9 @@
               drawField(options.field.size.rows, options.field.size.columns);
             }
           }
+
+          setFillColor(contextBeetles, options.beetle.color);
+          contextField.strokeStyle = options.beetle.color;
 
           clearCoord();
           initClickEvent();
@@ -215,14 +223,14 @@
                 if (neighbours < 2 || neighbours > 3) {
                   world[i][j] = 0;
                   liveBeetles--;
-                  drawBeetle(coordX, coordY, options.field.backgound.color);
+                  removeBeetle(coordX, coordY);
                 }
               } else {
                 // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
                 if (neighbours === 3) {
                   world[i][j] = 1;
                   liveBeetles++;
-                  drawBeetle(coordX, coordY, options.beetle.color);
+                  drawBeetle(coordX, coordY);
                 }
               }
             }
