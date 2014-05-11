@@ -140,9 +140,14 @@
             var i = Math.floor(event.offsetX / cellWidth),
                 j = Math.floor(event.offsetY / cellHeight);
 
-            if (!_.isUndefined(world[i]) && !world[i][j]) {
-              world[i][j] = 1;
-              drawBeetle(i * cellWidth, j * cellHeight, options.beetle.color);
+            if (!_.isUndefined(world[i])) {
+              if (!world[i][j]) {
+                world[i][j] = 1;
+                drawBeetle(i * cellWidth, j * cellHeight, options.beetle.color);
+              } else {
+                world[i][j] = 0;
+                drawBeetle(i * cellWidth, j * cellHeight, options.field.backgound.color);                
+              }
             }
           });
         },
@@ -196,7 +201,7 @@
               coordY,
               neighbours;
 
-          prevWorld = world.slice(0);
+          prevWorld = _.cloneDeep(world);
 
           for (; i < options.field.size.rows; i++) {
             for (j = 0; j < options.field.size.columns; j++) {
